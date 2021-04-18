@@ -119,6 +119,12 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "onCharacteristicWriteRequest: Have message: \"$message\"")
 
             }
+            if (characteristic.uuid == CONFIRM_UUID) {
+                gattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, 0, null)
+                val message = value?.toString(Charsets.UTF_8)
+                Log.d(TAG, "onCharacteristicWriteRequest: 777Have message: \"$message\"")
+
+            }
         }
     }
 
