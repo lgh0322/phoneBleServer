@@ -12,8 +12,11 @@ import android.os.Bundle
 import android.os.ParcelUuid
 import android.provider.SyncStateContract
 import android.util.Log
+import android.view.View
 import java.util.*
 private const val TAG = "ChatServer"
+
+
 val SERVICE_UUID: UUID = UUID.fromString("0000b81d-0000-1000-8000-00805f9b34fb")
 
 /**
@@ -25,15 +28,8 @@ val MESSAGE_UUID: UUID = UUID.fromString("7db3e235-3608-41f3-a03c-955fcbd2ea4b")
  * UUID to confirm device connection
  */
 val CONFIRM_UUID: UUID = UUID.fromString("36d4dc5c-814b-4097-a5a6-b93b39085928")
-class MainActivity : AppCompatActivity() {
-
-
-
-
+class Server : AppCompatActivity() {
     private var advertiser: BluetoothLeAdvertiser? = null
-
-
-
     private val adapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +39,6 @@ class MainActivity : AppCompatActivity() {
         setupGattServer(application)
         startAdvertisement()
     }
-
-
 
 
     private var gattServer: BluetoothGattServer? = null
