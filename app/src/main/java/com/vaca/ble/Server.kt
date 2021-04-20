@@ -15,13 +15,24 @@ import androidx.appcompat.app.AppCompatActivity
 
 class Server : AppCompatActivity() {
 
+    var len=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        val fuck:RGBBackGround=findViewById(R.id.wu)
         BleBroadcast.setupGattServer(application)
 
+        BleBroadcast.writeUuidGet= object : BleBroadcast.WriteUuidGet{
+            override fun getByteArray(b: ByteArray) {
+                for(k in len until len+b.size){
+                    fuck.fuck[k]=b[k-len]
+                }
+                fuck.invalidate()
+                len+=b.size
+            }
+
+        }
     }
 
 

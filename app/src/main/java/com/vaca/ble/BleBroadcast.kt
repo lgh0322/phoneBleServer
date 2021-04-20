@@ -26,6 +26,18 @@ object BleBroadcast {
     private lateinit var bluetoothManager: BluetoothManager
 
 
+
+
+
+    interface WriteUuidGet{
+        fun getByteArray(b:ByteArray)
+    }
+
+
+    var writeUuidGet:WriteUuidGet?=null
+
+
+
     fun setupGattServer(app: Application) {
         bluetoothManager = app.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         gattServerCallback = GattServerCallback()
@@ -98,8 +110,10 @@ object BleBroadcast {
             )
             if (characteristic.uuid == MESSAGE_UUID) {
                 gattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, 0, null)
-                val message = value?.toString(Charsets.UTF_8)
-                Log.d(TAG, "onCharacteristicWriteRequest: Have message: \"$message\"")
+               value?.run {
+                   writeUuidGet?.getByteArray(this)
+               }
+                Log.d(TAG, "onCharacteristicWriteRequest: Have message: \"$len\"")
 
             }
             if (characteristic.uuid == CONFIRM_UUID) {
@@ -155,6 +169,7 @@ object BleBroadcast {
 
 
     private var advertiseCallback: AdvertiseCallback? = null
+    var len=0
 
     private class DeviceAdvertiseCallback : AdvertiseCallback() {
         override fun onStartFailure(errorCode: Int) {
