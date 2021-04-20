@@ -47,13 +47,13 @@ object BleBroadcast {
         // need to ensure that the property is writable and has the write permission
         val messageCharacteristic = BluetoothGattCharacteristic(
             MESSAGE_UUID,
-            BluetoothGattCharacteristic.PROPERTY_WRITE,
+            BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE ,
             BluetoothGattCharacteristic.PERMISSION_WRITE
         )
         service.addCharacteristic(messageCharacteristic)
         val confirmCharacteristic = BluetoothGattCharacteristic(
             CONFIRM_UUID,
-            BluetoothGattCharacteristic.PROPERTY_WRITE,
+            BluetoothGattCharacteristic.PROPERTY_NOTIFY,
             BluetoothGattCharacteristic.PERMISSION_WRITE
         )
         service.addCharacteristic(confirmCharacteristic)
