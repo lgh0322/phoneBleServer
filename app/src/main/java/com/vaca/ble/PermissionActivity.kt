@@ -14,7 +14,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 
-
 class PermissionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +50,7 @@ class PermissionActivity : AppCompatActivity() {
             permissionRequestCode -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initA()
             } else {
-                startActivity(Intent(this,SelectActivity::class.java))
+                startActivity(Intent(this, SelectActivity::class.java))
                 this.finish()
             }
             else -> {

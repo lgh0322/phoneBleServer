@@ -26,11 +26,8 @@ object BleBroadcast {
     private lateinit var bluetoothManager: BluetoothManager
 
 
-
-
-
     fun setupGattServer(app: Application) {
-        bluetoothManager =app. getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        bluetoothManager = app.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         gattServerCallback = GattServerCallback()
 
         gattServer = bluetoothManager.openGattServer(
@@ -65,8 +62,6 @@ object BleBroadcast {
     }
 
 
-
-
     class GattServerCallback : BluetoothGattServerCallback() {
         override fun onConnectionStateChange(device: BluetoothDevice, status: Int, newState: Int) {
             super.onConnectionStateChange(device, status, newState)
@@ -92,7 +87,15 @@ object BleBroadcast {
             offset: Int,
             value: ByteArray?
         ) {
-            super.onCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value)
+            super.onCharacteristicWriteRequest(
+                device,
+                requestId,
+                characteristic,
+                preparedWrite,
+                responseNeeded,
+                offset,
+                value
+            )
             if (characteristic.uuid == MESSAGE_UUID) {
                 gattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, 0, null)
                 val message = value?.toString(Charsets.UTF_8)
@@ -107,16 +110,6 @@ object BleBroadcast {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
 //----------------------------------------------------------advertiseMent
@@ -161,8 +154,8 @@ object BleBroadcast {
     }
 
 
-
     private var advertiseCallback: AdvertiseCallback? = null
+
     private class DeviceAdvertiseCallback : AdvertiseCallback() {
         override fun onStartFailure(errorCode: Int) {
             super.onStartFailure(errorCode)

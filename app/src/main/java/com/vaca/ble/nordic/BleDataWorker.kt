@@ -92,8 +92,6 @@ class BleDataWorker {
     }
 
 
-
-
     private fun sendCmd(bs: ByteArray) {
         myBleDataManager?.sendCmd(bs)
     }
@@ -127,8 +125,6 @@ class BleDataWorker {
     suspend fun waitConnect() {
         connectChannel.receive()
     }
-
-
 
 
 }
